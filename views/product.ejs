@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD de Pasteles</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #FF85A2;
+      --secondary-color: #FFC2D1;
+      --accent-color: #7B2CBF;
+      --background-color: #FFF0F3;
+      --text-color: #2D3436;
+    }
+    body {
+      background-color: var(--background-color);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text-color);
+    }
+    .navbar {
+      background-color: var(--primary-color) !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .navbar-brand {
+      color: white !important;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .container {
+      background-color: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      margin-top: 30px;
+    }
+    h1 {
+      color: var(--accent-color);
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+    .form-control {
+      border-radius: 10px;
+      border: 2px solid var(--secondary-color);
+      padding: 10px;
+    }
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(255,133,162,0.25);
+    }
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-radius: 25px;
+      padding: 10px 30px;
+      font-weight: bold;
+    }
+    .btn-primary:hover {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+    .form-group label {
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .pastel-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .pastel-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 15px;
+      text-align: center;
+    }
+    .pastel-image {
+      max-width: 100%;
+      max-height: 150px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .pastel-info strong {
+      font-size: 18px;
+      color: var(--accent-color);
+    }
+    .pastel-info p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/dashboard">🧁 CRUD Pastelería</a>
+    <form action="/auth/logout" method="POST" style="margin-left: auto;">
+      <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+    </form>
+  </nav>
+  <div class="container">
+    <h1 class="text-center">CRUD de Pastelería</h1>
+    <form action="/pasteles/<%= bakery._id %>" method="POST" enctype="multipart/form-data">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="name">Nombre del producto</label>
+          <input type="text" name="name" class="form-control" placeholder="Nombre del producto" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="description">Descripción</label>
+          <textarea name="description" class="form-control" placeholder="Descripción" required></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="price">Precio</label>
+          <input type="number" name="price" class="form-control" placeholder="Precio" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="imageUrl">URL de la imagen</label>
+          <input type="text" name="imageUrl" class="form-control" placeholder="URL de la imagen">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="imageFile">Subir imagen</label>
+          <input type="file" name="imageFile" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="deliveryDate">Fecha de entrega</label>
+        <input type="date" name="deliveryDate" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Agregar Producto</button>
+    </form>
+    <hr>
+    <h2 class="text-center">Lista de Productos</h2>
+    <div class="pastel-grid">
+      <% pasteles.forEach(pastel => { %>
+        <div class="pastel-card">
+          <% if (pastel.imageUrl) { %>
+            <img src="<%= pastel.imageUrl.startsWith('/uploads') ? pastel.imageUrl : `/uploads/${pastel.imageUrl}` %>" alt="Imagen del pastel" class="pastel-image">
+          <% } else { %>
+            <img src="/uploads/default-placeholder.png" alt="Imagen no disponible" class="pastel-image">
+          <% } %>
+          <div class="pastel-info">
+            <strong><a href="/pasteles/<%= bakery._id %>/<%= pastel._id %>"><%= pastel.name %></a></strong>
+            <p><%= pastel.description || 'Sin descripción' %></p>
+            <p>Precio: $<%= pastel.price %></p>
+            <p>Fecha de entrega: <%= pastel.deliveryDate ? pastel.deliveryDate.toISOString().split('T')[0] : 'No asignada' %></p>
+            <a href="/pasteles/<%= bakery._id %>/<%= pastel._id %>/edit" class="btn btn-warning btn-sm">Editar</a>
+            <form action="/pasteles/<%= bakery._id %>/<%= pastel._id %>/delete" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

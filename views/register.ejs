@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        :root {
+            --primary-color: #FF85A2;
+            --secondary-color: #FFC2D1;
+            --accent-color: #7B2CBF;
+            --background-color: #FFF0F3;
+            --text-color: #2D3436;
+        }
+        body {
+            background-color: var(--background-color);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 800px;
+        }
+        .login-form {
+            padding: 30px;
+            width: 50%;
+        }
+        .login-banner {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 30px;
+            width: 50%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-banner img {
+            max-width: 100px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 5px;
+        }
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 133, 162, 0.5);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: var(--accent-color);
+        }
+        p {
+            margin-top: 15px;
+            color: var(--text-color);
+        }
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .login-banner a {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .login-banner a:hover {
+            background-color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h1>Registro</h1>
+            <form action="/auth/register" method="POST">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Registrarse</button>
+            </form>
+            <p>¿Ya tienes una cuenta? <a href="/">Inicia sesión aquí</a></p>
+        </div>
+        <div class="login-banner">
+            <img src="/uploads/logo.png" alt="Logo de Pastelería CRUD">
+            <h2>Únete a Pastelería CRUD</h2>
+            <p>Empieza a gestionar tus pasteles hoy mismo.</p>
+            <a href="/">Iniciar Sesión</a>
+        </div>
+    </div>
+</body>
+</html>

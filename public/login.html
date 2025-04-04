@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pastelería</title>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-switch">
+                <button class="switch-btn active" data-form="login">Iniciar Sesión</button>
+                <button class="switch-btn" data-form="register">Registrarse</button>
+            </div>
+
+            <form id="loginForm" class="form">
+                <h2>Bienvenido de vuelta</h2>
+                <div class="form-group">
+                    <input type="text" id="loginUsername" required>
+                    <label>Usuario</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" required>
+                    <label>Contraseña</label>
+                </div>
+                <button type="submit" class="submit-btn">Entrar</button>
+            </form>
+
+            <form id="registerForm" class="form hidden">
+                <h2>Crear cuenta nueva</h2>
+                <div class="form-group">
+                    <input type="text" id="registerUsername" required>
+                    <label>Usuario</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="registerEmail" required>
+                    <label>Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="registerPassword" required>
+                    <label>Contraseña</label>
+                </div>
+                <button type="submit" class="submit-btn">Registrarse</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

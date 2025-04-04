@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pastelerías</title>
+</head>
+<body>
+    <header>
+        <h1>Mis Pastelerías</h1>
+        <form action="/auth/logout" method="POST" style="display: inline;">
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+    </header>
+    <a href="/bakery/new">Crear nueva pastelería</a>
+    <ul>
+        <% bakeries.forEach(bakery => { %>
+            <li>
+                <strong><%= bakery.name %></strong>: <%= bakery.description || 'Sin descripción' %>
+                <br>
+                <a href="/bakery/<%= bakery._id %>/edit">Editar</a>
+                <form action="/bakery/<%= bakery._id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
